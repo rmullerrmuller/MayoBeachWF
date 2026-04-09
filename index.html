@@ -47,14 +47,14 @@
   .site-name{font-size:22px;font-weight:300;letter-spacing:-.02em;}
   .site-sub{font-size:11px;color:var(--text3);font-family:'DM Mono',monospace;}
   .grid-wrap{padding:0 20px 20px;overflow-x:auto;}
-  .grid-header{display:grid;grid-template-columns:64px repeat(14,1fr);gap:1px;margin-bottom:3px;padding-bottom:4px;border-bottom:0.5px solid var(--border);}
+  .grid-header{display:grid;grid-template-columns:64px repeat(12,1fr);gap:1px;margin-bottom:3px;padding-bottom:4px;border-bottom:0.5px solid var(--border);}
   .gh-label{font-family:'DM Mono',monospace;font-size:9px;color:var(--text3);text-align:center;}
-  .day-row{display:grid;grid-template-columns:64px repeat(14,1fr);gap:1px;margin-bottom:1px;}
+  .day-row{display:grid;grid-template-columns:64px repeat(12,1fr);gap:1px;margin-bottom:1px;}
   .day-lbl{display:flex;flex-direction:column;justify-content:center;padding-right:8px;}
   .day-name{font-weight:500;font-size:11px;color:var(--text2);}
   .day-date{font-family:'DM Mono',monospace;font-size:9px;color:var(--text3);}
-  /* Cell = 38px = 2" face. Zones bottom-up: 0-27px tide fill, 27-31px gap, 31-38px dot */
-  .hcell{height:38px;border-radius:2px;position:relative;cursor:pointer;transition:filter .1s;overflow:hidden;}
+  /* Cell = 57px (38 * 1.5). Zones bottom-up: 0-40px tide fill, 40-46px gap, 46-57px dot */
+  .hcell{height:57px;border-radius:2px;position:relative;cursor:pointer;transition:filter .1s;overflow:hidden;}
   .hcell:hover{filter:brightness(1.2);z-index:2;}
   .hcell.now{outline:1.5px solid rgba(255,255,255,.75);z-index:3;}
   .r-prime{background:var(--prime);}
@@ -68,9 +68,9 @@
   @keyframes shimmer{0%,100%{opacity:.3}50%{opacity:.7}}
   .tide-fill{position:absolute;bottom:0;left:0;width:100%;background:rgba(0,0,0,.28);border-radius:2px 2px 0 0;}
   .r-tide-good .tide-fill,.r-tide-ok .tide-fill{background:rgba(70,140,200,.15);}
-  .wdot{position:absolute;top:5px;left:50%;transform:translateX(-50%);width:5px;height:5px;border-radius:50%;z-index:3;}
+  .wdot{position:absolute;top:7px;left:50%;transform:translateX(-50%);width:6px;height:6px;border-radius:50%;z-index:3;}
   .arrow-cnv{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:4;}
-  .tide-pip{position:absolute;top:4px;right:4px;width:3px;height:3px;border-radius:50%;background:rgba(74,170,222,.6);z-index:3;}
+  .tide-pip{position:absolute;top:6px;right:5px;width:4px;height:4px;border-radius:50%;background:rgba(74,170,222,.6);z-index:3;}
   .legend{display:flex;gap:14px;flex-wrap:wrap;padding:10px 20px 14px;border-top:0.5px solid var(--border);}
   .li{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--text3);}
   .ls{width:10px;height:10px;border-radius:2px;flex-shrink:0;}
@@ -114,14 +114,9 @@
     <span class="tog-label">Arrows</span>
   </div>
   <div class="ctrl-sep"></div>
-  <div class="tog-wrap" onclick="toggleCycle()">
-    <div class="tog-track" id="cycle-tog"><div class="tog-knob"></div></div>
-    <span class="tog-label">Auto-Cycle</span>
-  </div>
-  <div class="ctrl-sep"></div>
   <div class="hist-indicator" title="Blue cells = tide model only, wind forecast not yet available">
     <div class="hist-check" id="hist-check"></div>
-    <span id="hist-label">tide model only</span>
+    <span id="hist-label">tide model</span>
   </div>
   <div class="status">
     <span class="sdot loading" id="sdot"></span>
@@ -141,9 +136,6 @@
   <span class="li"><span class="ls" style="background:var(--good)"></span>Good</span>
   <span class="li"><span class="ls" style="background:var(--marginal)"></span>Marginal</span>
   <span class="li"><span class="ls" style="background:var(--poor);border:0.5px solid #333"></span>Poor</span>
-  <span class="li"><span class="ls" style="background:var(--night)"></span>Night</span>
-  <span class="li"><span class="ls" style="background:var(--tide-good);border:0.5px solid #2a6a8a"></span>Tide OK · wind TBD</span>
-  <span class="li"><span class="ls" style="background:var(--tide-ok);border:0.5px solid #2a4a55"></span>Tide low · wind TBD</span>
   <span class="li"><span class="ld" style="background:var(--dot-on)"></span>Onshore</span>
   <span class="li"><span class="ld" style="background:var(--dot-cross)"></span>Cross</span>
   <span class="li"><span class="ld" style="background:var(--dot-off)"></span>Offshore</span>
@@ -155,14 +147,19 @@ const SITES=[
   {name:'Mayo Beach',  sub:'Wellfleet · Cape Cod Bay', noaaId:'8446613', isBay:false},
   {name:'Pleasant Bay',sub:'Chatham · Orleans',         noaaId:'8447435', isBay:true},
 ];
-const HOURS=[5,6,7,8,9,10,11,12,13,14,15,16,17,18];
-const HLBLS=['5a','6','7','8','9','10','11','12p','1','2','3','4','5','6p'];
+// 5am and 6am removed — start at 7am
+const HOURS=[7,8,9,10,11,12,13,14,15,16,17,18];
+const HLBLS=['7a','8','9','10','11','12p','1','2','3','4','5','6p'];
 const NDAYS=10;
-const TIDE_MAX_PX=27; // px = 1.4" on 2" face
-const GAP_PX=4;       // px = 0.2" light shield gap
+
+// Cell geometry — 57px = 38 * 1.5 = 2" face at 150%
+// Tide fill max: 40px (was 27, scaled 1.5x)
+// Gap: 6px (was 4, scaled 1.5x)
+// Dot zone: top 7px
+const TIDE_MAX_PX=40;
 
 let tideData=[null,null],windData=null;
-let minWind=12,minTidePct=28,curSite=0,showArrows=false,cycleOn=false,cycleTimer=null;
+let minWind=12,minTidePct=28,curSite=0,showArrows=false;
 let windForecastDays=0;
 
 const today=()=>{const n=new Date();return new Date(n.getFullYear(),n.getMonth(),n.getDate());};
@@ -173,18 +170,17 @@ const monthDay=d=>(d.getMonth()+1)+'/'+d.getDate();
 const ampm=h=>h===12?'12p':h>12?(h-12)+'p':h+'a';
 
 // ── NOAA TIDES ──
-// IMPORTANT: time_zone=lst_ldt must use underscores (never URL-encoded)
 // Wellfleet 8446613 = subordinate, hi/lo only → cosine interpolate
-// Chatham   8447435 = harmonic, hourly direct (no interval param needed)
+// Chatham   8447435 = harmonic, hourly direct (no interval param)
+// time_zone=lst_ldt must use underscores — never URL-encoded
 const HILO_ONLY=new Set(['8446613']);
 
 async function fetchTides(si){
   const id=SITES[si].noaaId;
-  const s=addDays(today(),-1); // 1 day lookback for interpolation anchor
-  const e=addDays(today(), 9); // today+9 inclusive = 10 days
+  const s=addDays(today(),-1);
+  const e=addDays(today(), 9);
   const fmt=d=>d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0');
 
-  // Explicit string concat — no template literals that might encode lst_ldt
   const base='https://api.tidesandcurrents.noaa.gov/api/prod/datagetter'
     +'?begin_date='+fmt(s)
     +'&end_date='+fmt(e)
@@ -198,20 +194,17 @@ async function fetchTides(si){
 
   let predictions;
   if(HILO_ONLY.has(id)){
-    // Subordinate: hi/lo interval, then cosine interpolate
     const j=await(await fetch(base+'&interval=hilo')).json();
     if(!j.predictions||j.predictions.length===0)
       throw new Error('Wellfleet ('+id+') hi/lo failed: '+JSON.stringify(j).slice(0,200));
     predictions=cosineInterpolate(j.predictions);
   } else {
-    // Harmonic: omit interval param → NOAA returns hourly by default
     const j=await(await fetch(base)).json();
     if(!j.predictions||j.predictions.length===0)
       throw new Error('Chatham ('+id+') hourly failed: '+JSON.stringify(j).slice(0,200));
     predictions=j.predictions.map(p=>({t:p.t,v:parseFloat(p.v)}));
   }
 
-  // Normalize 0-1 across full fetched window
   const vals=predictions.map(p=>p.v);
   const mn=Math.min(...vals),mx=Math.max(...vals),rng=mx-mn||1;
   const byDay={};
@@ -242,7 +235,6 @@ function cosineInterpolate(hilos){
   return result;
 }
 
-// ── OPEN-METEO WIND ── real forecast only, no simulation
 async function fetchWind(){
   const url='https://api.open-meteo.com/v1/forecast'
     +'?latitude=41.9298&longitude=-70.0317'
@@ -262,7 +254,6 @@ async function fetchWind(){
   windForecastDays=Object.keys(byDay).filter(d=>d>=ts).length;
 }
 
-// ── RATING ──
 function classifyDir(dir){
   const d=(dir+360)%360;
   if(d>=170&&d<=260)return 0;
@@ -284,37 +275,36 @@ function rateTideOnly(tide,mt,h){
   if(h<6.5||h>18.5)return 'night';
   return tide>=mt/100?'tide-good':'tide-ok';
 }
+
 const RC={prime:'r-prime',good:'r-good',marginal:'r-marginal',poor:'r-poor',night:'r-night','tide-good':'r-tide-good','tide-ok':'r-tide-ok'};
-const RL={prime:'Prime',good:'Good',marginal:'Marginal',poor:'No-go',night:'Night','tide-good':'Tide OK · wind TBD','tide-ok':'Too shallow · wind TBD'};
+const RL={prime:'Prime',good:'Good',marginal:'Marginal',poor:'No-go',night:'Night','tide-good':'Tide OK · wind TBD','tide-ok':'Shallow · wind TBD'};
 const RCOL={prime:'var(--prime)',good:'var(--good)',marginal:'var(--marginal)',poor:'#666',night:'#444','tide-good':'#4aaade','tide-ok':'#3a7a9a'};
 const DCOL=['var(--dot-on)','var(--dot-cross)','var(--dot-off)'];
 const DLBL=['Onshore','Cross-shore','Offshore'];
 
-// ── ARROW DRAWING ──
 function drawArrow(canvas,dir,speed){
   const cw=canvas.width,ch=canvas.height,ctx=canvas.getContext('2d');
   ctx.clearRect(0,0,cw,ch);
-  const cx=cw/2,cy=16,len=8;
+  const cx=cw/2,cy=22,len=11;
   const rad=(dir+180)*Math.PI/180;
   const tx=cx+Math.sin(rad)*len,ty=cy-Math.cos(rad)*len;
   const bx=cx-Math.sin(rad)*len,by=cy+Math.cos(rad)*len;
   const col='rgba(255,255,255,.85)';
-  ctx.strokeStyle=col;ctx.fillStyle=col;ctx.lineWidth=1;
+  ctx.strokeStyle=col;ctx.fillStyle=col;ctx.lineWidth=1.2;
   ctx.beginPath();ctx.moveTo(bx,by);ctx.lineTo(tx,ty);ctx.stroke();
-  const hw=2.2,px=-Math.cos(rad),py=-Math.sin(rad);
-  const bkx=tx-Math.sin(rad)*3.5,bky=ty+Math.cos(rad)*3.5;
+  const hw=2.8,px=-Math.cos(rad),py=-Math.sin(rad);
+  const bkx=tx-Math.sin(rad)*4.5,bky=ty+Math.cos(rad)*4.5;
   ctx.beginPath();ctx.moveTo(tx,ty);ctx.lineTo(bkx+px*hw,bky+py*hw);ctx.lineTo(bkx-px*hw,bky-py*hw);ctx.closePath();ctx.fill();
   const shDX=Math.sin(rad),shDY=-Math.cos(rad),baDX=Math.cos(rad),baDY=Math.sin(rad);
   let rem=speed,pos=0;
   while(rem>=5&&pos<len-1){
-    const bl=rem>=10?4:2.2;
-    ctx.lineWidth=.9;ctx.beginPath();
+    const bl=rem>=10?5.5:2.8;
+    ctx.lineWidth=1;ctx.beginPath();
     ctx.moveTo(bx+shDX*pos,by+shDY*pos);ctx.lineTo(bx+shDX*pos+baDX*bl,by+shDY*pos+baDY*bl);ctx.stroke();
-    rem-=rem>=10?10:5;pos+=3;
+    rem-=rem>=10?10:5;pos+=3.5;
   }
 }
 
-// ── RENDER ──
 function buildHeader(){
   document.getElementById('grid-header').innerHTML='<div></div>'+HLBLS.map(l=>'<div class="gh-label">'+l+'</div>').join('');
 }
@@ -322,7 +312,7 @@ function buildHeader(){
 function updateHistCheck(){
   const on=windForecastDays<NDAYS;
   document.getElementById('hist-check').classList.toggle('on',on);
-  document.getElementById('hist-label').textContent=on?'tide model: day '+(windForecastDays+1)+'-'+NDAYS:'full wind forecast';
+  document.getElementById('hist-label').textContent=on?'tide model: day '+(windForecastDays+1)+'-'+NDAYS:'tide model';
 }
 
 function renderGrid(){
@@ -353,7 +343,7 @@ function renderGrid(){
         if(!tideOnly&&r!=='poor'){
           const wd=document.createElement('div');wd.className='wdot';wd.style.background=DCOL[dc];cell.appendChild(wd);
           if(showArrows){
-            const cnv=document.createElement('canvas');cnv.className='arrow-cnv';cnv.height=38;cell.appendChild(cnv);
+            const cnv=document.createElement('canvas');cnv.className='arrow-cnv';cnv.height=57;cell.appendChild(cnv);
             requestAnimationFrame(()=>{cnv.width=cnv.parentElement?.offsetWidth||20;drawArrow(cnv,wv.dir,wv.speed);});
           }
         }
@@ -384,7 +374,6 @@ function setLoc(i){curSite=i;[0,1].forEach(j=>document.getElementById('btn'+j).c
 function onWind(v){minWind=parseInt(v);document.getElementById('wmin-v').textContent=v+' kts';renderGrid();}
 function onTide(v){minTidePct=parseInt(v);document.getElementById('tmin-v').textContent=v+'%';renderGrid();}
 function toggleArrows(){showArrows=!showArrows;document.getElementById('arrow-tog').classList.toggle('on',showArrows);document.getElementById('arrow-li').style.display=showArrows?'flex':'none';renderGrid();}
-function toggleCycle(){cycleOn=!cycleOn;document.getElementById('cycle-tog').classList.toggle('on',cycleOn);cycleOn?cycleTimer=setInterval(()=>setLoc(curSite===0?1:0),5000):clearInterval(cycleTimer);}
 function setStatus(state,msg){document.getElementById('sdot').className='sdot'+(state==='ok'?'':state==='loading'?' loading':' error');document.getElementById('stext').textContent=msg;}
 function showError(msg){document.getElementById('grid').innerHTML='<div class="error-box"><div class="ei">⚠</div><div class="et">Unable to load live data</div><div class="em">'+msg+'</div><button class="err-retry" onclick="location.reload()">Retry</button></div>';}
 
@@ -399,7 +388,7 @@ function showError(msg){document.getElementById('grid').innerHTML='<div class="e
   }catch(err){
     console.error(err);
     setStatus('error','Data unavailable');
-    showError(err.message+'<br><br>Open browser console for full error details. This app must be served via HTTP (GitHub Pages or python3 -m http.server) — not opened as a local file.');
+    showError(err.message+'<br><br>Must be served via HTTP — not opened as a local file. Try GitHub Pages or python3 -m http.server 8080');
   }
 })();
 </script>
