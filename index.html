@@ -15,22 +15,15 @@
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:13px;min-height:100vh;}
-
   header{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-bottom:0.5px solid var(--border);background:var(--bg2);flex-wrap:wrap;gap:10px;}
   .brand-super{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.18em;color:var(--text3);text-transform:uppercase;margin-bottom:3px;}
-
-  /* Sport toggle — acts as the page title */
   .sport-toggle{display:flex;border:0.5px solid var(--border);border-radius:8px;overflow:hidden;}
   .sport-btn{padding:8px 18px;font-size:15px;font-weight:300;letter-spacing:-.01em;cursor:pointer;color:var(--text2);background:transparent;border:none;font-family:'DM Sans',sans-serif;transition:all .15s;white-space:nowrap;}
   .sport-btn:first-child{border-right:0.5px solid var(--border);}
   .sport-btn.active{background:var(--accent);color:#fff;}
-
-  /* Location tabs */
   .loc-tabs{display:flex;gap:6px;flex-wrap:wrap;}
   .loc-tab{padding:7px 14px;border-radius:6px;font-size:12px;font-weight:500;border:0.5px solid var(--border);cursor:pointer;background:transparent;color:var(--text2);transition:all .15s;font-family:'DM Sans',sans-serif;white-space:nowrap;}
   .loc-tab.active{background:var(--accent);color:#fff;border-color:transparent;}
-
-  /* Controls */
   .controls{display:flex;align-items:center;gap:14px;padding:10px 20px;border-bottom:0.5px solid var(--border);background:var(--bg2);flex-wrap:wrap;}
   .ctrl-group{display:flex;align-items:center;gap:8px;}
   .ctrl-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);letter-spacing:.05em;white-space:nowrap;}
@@ -53,12 +46,10 @@
   .sdot.loading{background:var(--marginal);animation:blink 1s infinite;}
   .sdot.error{background:var(--dot-off);}
   @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-
   .site-info{padding:12px 20px 8px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;}
   .site-name{font-size:22px;font-weight:300;letter-spacing:-.02em;}
   .site-sub{font-size:11px;color:var(--text3);font-family:'DM Mono',monospace;}
   .site-note{font-size:10px;color:var(--text3);font-family:'DM Mono',monospace;font-style:italic;}
-
   .grid-wrap{padding:0 20px 20px;overflow-x:auto;}
   .grid-header{display:grid;grid-template-columns:64px repeat(12,1fr);gap:1px;margin-bottom:3px;padding-bottom:4px;border-bottom:0.5px solid var(--border);}
   .gh-label{font-family:'DM Mono',monospace;font-size:9px;color:var(--text3);text-align:center;}
@@ -66,9 +57,7 @@
   .day-lbl{display:flex;flex-direction:column;justify-content:center;padding-right:8px;}
   .day-name{font-weight:500;font-size:11px;color:var(--text2);}
   .day-date{font-family:'DM Mono',monospace;font-size:9px;color:var(--text3);}
-
-  /* Cell = 57px. Zones bottom-up: 0-40px tide fill, 40-46px gap, 46-57px dot */
-  .hcell{height:57px;border-radius:2px;position:relative;cursor:pointer;transition:filter .1s;overflow:hidden;}
+  .hcell{height:57px;border-radius:2px;position:relative;cursor:pointer;transition:filter .1s;overflow:visible;}
   .hcell:hover{filter:brightness(1.2);z-index:2;}
   .hcell.now{outline:1.5px solid rgba(255,255,255,.75);z-index:3;}
   .r-prime{background:var(--prime);}
@@ -80,17 +69,16 @@
   .r-tide-ok{background:var(--tide-ok);}
   .r-loading{background:var(--bg3);animation:shimmer 1.4s infinite;}
   @keyframes shimmer{0%,100%{opacity:.3}50%{opacity:.7}}
-  .tide-fill{position:absolute;bottom:0;left:0;width:100%;background:rgba(0,0,0,.28);border-radius:2px 2px 0 0;}
+  .tide-fill{position:absolute;bottom:0;left:0;width:100%;background:rgba(0,0,0,.38);border-radius:2px 2px 0 0;}
   .r-tide-good .tide-fill,.r-tide-ok .tide-fill{background:rgba(70,140,200,.15);}
   .wdot{position:absolute;top:7px;left:50%;transform:translateX(-50%);width:6px;height:6px;border-radius:50%;z-index:3;}
   .arrow-cnv{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:4;}
   .tide-pip{position:absolute;top:6px;right:5px;width:4px;height:4px;border-radius:50%;background:rgba(74,170,222,.6);z-index:3;}
-
+  .temp-lbl{position:absolute;bottom:3px;left:3px;font-family:'DM Mono',monospace;font-size:11px;font-weight:500;color:#fff;z-index:20;line-height:1;pointer-events:none;text-shadow:0 1px 4px rgba(0,0,0,0.9);}
   .legend{display:flex;gap:14px;flex-wrap:wrap;padding:10px 20px 14px;border-top:0.5px solid var(--border);}
   .li{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--text3);}
   .ls{width:10px;height:10px;border-radius:2px;flex-shrink:0;}
   .ld{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
-
   #tt{position:fixed;display:none;background:var(--bg2);border:0.5px solid rgba(255,255,255,.12);border-radius:8px;padding:9px 12px;font-size:11px;color:var(--text);line-height:1.7;pointer-events:none;z-index:999;max-width:210px;font-family:'DM Mono',monospace;}
   #tt strong{color:#fff;font-weight:500;}
   .tt-r{margin-top:3px;font-size:12px;}
@@ -102,11 +90,9 @@
 </style>
 </head>
 <body>
-
 <header>
   <div>
     <div class="brand-super">Cape Cod · Conditions</div>
-    <!-- Sport toggle is the title -->
     <div class="sport-toggle">
       <button class="sport-btn active" id="sport-wing" onclick="setSport('wing')">Wingfoil</button>
       <button class="sport-btn"        id="sport-cat"  onclick="setSport('cat')">Catboat</button>
@@ -118,7 +104,6 @@
     <button class="loc-tab"        id="btn2" onclick="setLoc(2)">Meeting House</button>
   </div>
 </header>
-
 <div class="controls">
   <div class="ctrl-group">
     <span class="ctrl-label">MIN WIND</span>
@@ -143,7 +128,7 @@
     <span class="tog-label">Arrows</span>
   </div>
   <div class="ctrl-sep"></div>
-  <div class="hist-indicator" title="Blue cells = tide model only, wind forecast not yet available">
+  <div class="hist-indicator" title="Blue cells = tide model only">
     <div class="hist-check" id="hist-check"></div>
     <span id="hist-label">tide model</span>
   </div>
@@ -152,18 +137,15 @@
     <span id="stext">Loading…</span>
   </div>
 </div>
-
 <div class="site-info">
   <div class="site-name" id="site-name">Mayo Beach</div>
   <div class="site-sub"  id="site-sub">Wellfleet · Cape Cod Bay</div>
   <div class="site-note" id="site-note"></div>
 </div>
-
 <div class="grid-wrap">
   <div class="grid-header" id="grid-header"></div>
   <div id="grid"></div>
 </div>
-
 <div class="legend">
   <span class="li"><span class="ls" style="background:var(--prime)"></span>Prime</span>
   <span class="li"><span class="ls" style="background:var(--good)"></span>Good</span>
@@ -175,38 +157,53 @@
   <span class="li" id="arrow-li" style="display:none">↑ tails=strength</span>
 </div>
 <div id="tt"></div>
-
 <script>
-// ── SITES ──
-// Meeting House Pond: no dedicated NOAA station.
-// Using 8447291 (Pleasant Bay, South Orleans) — nearest subordinate station.
-// Tides shifted +40min to approximate the lag through the Namequoit River channel.
-// Use for visual ground-truthing; not a precision instrument.
 const SITES=[
-  { name:'Mayo Beach',    sub:'Wellfleet · Cape Cod Bay',         note:'',
-    noaaId:'8446613', isBay:false, tideOffsetMin:0   },
-  { name:'Pleasant Bay',  sub:'Chatham · Orleans',                 note:'',
-    noaaId:'8447435', isBay:true,  tideOffsetMin:0   },
-  { name:'Meeting House', sub:'East Orleans · Namequoit River',
-    note:'Tide via NOAA 8447291 (Pleasant Bay S. Orleans) +40min offset — for observation',
-    noaaId:'8447291', isBay:true,  tideOffsetMin:40  },
+  {name:'Mayo Beach',  sub:'Wellfleet · Cape Cod Bay',       note:'', noaaId:'8446613', isBay:false, tideOffsetMin:0},
+  {name:'Pleasant Bay',sub:'Chatham · Orleans',               note:'', noaaId:'8447435', isBay:true,  tideOffsetMin:0},
+  {name:'Meeting House',sub:'East Orleans · Namequoit River',
+   note:'Tide via NOAA 8447291 (Pleasant Bay S. Orleans) +40min offset — for observation',
+   noaaId:'8447291', isBay:true, tideOffsetMin:40},
 ];
-
 const HOURS=[7,8,9,10,11,12,13,14,15,16,17,18];
 const HLBLS=['7a','8','9','10','11','12p','1','2','3','4','5','6p'];
 const NDAYS=10;
 const TIDE_MAX_PX=40;
 
-// Sport presets
 const SPORTS={
-  wing:{ label:'Wingfoil', minWind:12, maxWind:20, showDir:true  },
-  cat: { label:'Catboat',  minWind:5,  maxWind:14, showDir:false },
+  wing:{label:'Wingfoil',minWind:12,maxWind:20,showDir:true},
+  cat: {label:'Catboat', minWind:5, maxWind:14,showDir:false},
 };
 
 let tideData=[null,null,null], windData=null;
 let minWind=12, maxWind=20, minTidePct=28;
 let curSite=0, curSport='wing', showArrows=false;
 let windForecastDays=0;
+
+// Water temp — single value applied to all days, wingfoil mode only
+// Source: NOAA NDBC buoy 44090 (off Cape Cod) — update manually for now
+// TODO: wire to live API when CORS solution found
+// Water temp — single real-time observation from NOAA CO-OPS Woods Hole 8447930.
+// Shown ONLY in the current hour cell (it's a live reading, not a forecast).
+// Woods Hole is ~30mi from all three sites — close enough for wetsuit decisions.
+let WATER_TEMP_F=null;
+let WATER_TEMP_UPDATED=null; // { ds:'YYYY-MM-DD', h:hour } of the reading
+
+async function fetchWaterTemp(){
+  const url='https://api.tidesandcurrents.noaa.gov/api/prod/datagetter'
+    +'?station=8447930&product=water_temperature&date=latest'
+    +'&units=english&time_zone=lst_ldt&application=wingfoil&format=json';
+  try{
+    const j=await(await fetch(url)).json();
+    if(j.data?.[0]?.v){
+      WATER_TEMP_F=Math.round(parseFloat(j.data[0].v));
+      // Parse the timestamp so we know which cell to stamp
+      const t=j.data[0].t; // format: "YYYY-MM-DD HH:MM"
+      WATER_TEMP_UPDATED={ds:t.slice(0,10), h:parseInt(t.slice(11,13))};
+      console.log('Water temp:',WATER_TEMP_F,'F at',t,'(Woods Hole 8447930)');
+    }
+  }catch(e){console.warn('Water temp failed:',e);}
+}
 
 const today=()=>{const n=new Date();return new Date(n.getFullYear(),n.getMonth(),n.getDate());};
 const isoDate=d=>d.toISOString().slice(0,10);
@@ -215,45 +212,34 @@ const dayName=d=>['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][d.getDay()];
 const monthDay=d=>(d.getMonth()+1)+'/'+d.getDate();
 const ampm=h=>h===12?'12p':h>12?(h-12)+'p':h+'a';
 
-// ── NOAA TIDES ──
 const HILO_ONLY=new Set(['8446613','8447291']);
 
 async function fetchTides(si){
-  const site=SITES[si];
-  const id=site.noaaId;
-  const s=addDays(today(),-1);
-  const e=addDays(today(), 9);
+  const site=SITES[si], id=site.noaaId;
+  const s=addDays(today(),-1), e=addDays(today(),9);
   const fmt=d=>d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0');
   const base='https://api.tidesandcurrents.noaa.gov/api/prod/datagetter'
     +'?begin_date='+fmt(s)+'&end_date='+fmt(e)
     +'&station='+id+'&product=predictions&datum=MLLW'
     +'&time_zone=lst_ldt&units=english&application=wingfoil&format=json';
-
   let predictions;
   if(HILO_ONLY.has(id)){
     const j=await(await fetch(base+'&interval=hilo')).json();
-    if(!j.predictions||j.predictions.length===0)
-      throw new Error('NOAA '+id+' hi/lo failed: '+JSON.stringify(j).slice(0,200));
+    if(!j.predictions||!j.predictions.length) throw new Error('NOAA '+id+' hi/lo: '+JSON.stringify(j).slice(0,120));
     predictions=cosineInterpolate(j.predictions);
   } else {
     const j=await(await fetch(base)).json();
-    if(!j.predictions||j.predictions.length===0)
-      throw new Error('NOAA '+id+' hourly failed: '+JSON.stringify(j).slice(0,200));
+    if(!j.predictions||!j.predictions.length) throw new Error('NOAA '+id+' hourly: '+JSON.stringify(j).slice(0,120));
     predictions=j.predictions.map(p=>({t:p.t,v:parseFloat(p.v)}));
   }
-
-  // Apply tide offset (minutes) — shifts predictions forward in time
-  // Used for Meeting House Pond to approximate river lag
-  if(site.tideOffsetMin!==0){
+  if(site.tideOffsetMin){
     predictions=predictions.map(p=>{
       const d=new Date(p.t.replace(' ','T'));
       d.setMinutes(d.getMinutes()+site.tideOffsetMin);
-      const mm=String(d.getMonth()+1).padStart(2,'0'),dd=String(d.getDate()).padStart(2,'0');
-      const hh=String(d.getHours()).padStart(2,'0');
+      const mm=String(d.getMonth()+1).padStart(2,'0'),dd=String(d.getDate()).padStart(2,'0'),hh=String(d.getHours()).padStart(2,'0');
       return {t:d.getFullYear()+'-'+mm+'-'+dd+' '+hh+':00',v:p.v};
     });
   }
-
   const vals=predictions.map(p=>p.v);
   const mn=Math.min(...vals),mx=Math.max(...vals),rng=mx-mn||1;
   const byDay={};
@@ -269,14 +255,12 @@ function cosineInterpolate(hilos){
   const pts=hilos.map(p=>({t:new Date(p.t.replace(' ','T')),v:parseFloat(p.v)}));
   const result=[];
   for(let i=0;i<pts.length-1;i++){
-    const t0=pts[i].t,v0=pts[i].v,t1=pts[i+1].t,v1=pts[i+1].v;
-    const totalMs=t1-t0;
+    const t0=pts[i].t,v0=pts[i].v,t1=pts[i+1].t,v1=pts[i+1].v,totalMs=t1-t0;
     let cur=new Date(t0);cur.setMinutes(0,0,0);
     while(cur<t1){
       const frac=Math.max(0,Math.min(1,(cur-t0)/totalMs));
       const val=v0+(v1-v0)*(1-Math.cos(frac*Math.PI))/2;
-      const mm=String(cur.getMonth()+1).padStart(2,'0'),dd=String(cur.getDate()).padStart(2,'0');
-      const hh=String(cur.getHours()).padStart(2,'0');
+      const mm=String(cur.getMonth()+1).padStart(2,'0'),dd=String(cur.getDate()).padStart(2,'0'),hh=String(cur.getHours()).padStart(2,'0');
       result.push({t:cur.getFullYear()+'-'+mm+'-'+dd+' '+hh+':00',v:val});
       cur.setHours(cur.getHours()+1);
     }
@@ -284,14 +268,13 @@ function cosineInterpolate(hilos){
   return result;
 }
 
-// ── OPEN-METEO WIND ──
 async function fetchWind(){
   const url='https://api.open-meteo.com/v1/forecast'
     +'?latitude=41.9298&longitude=-70.0317'
     +'&hourly=wind_speed_10m,wind_direction_10m'
     +'&wind_speed_unit=kn&timezone=America%2FNew_York&forecast_days=10';
   const j=await(await fetch(url)).json();
-  if(!j.hourly||!j.hourly.time)throw new Error('Open-Meteo: no wind data');
+  if(!j.hourly||!j.hourly.time) throw new Error('Open-Meteo: no wind data');
   const byDay={};
   j.hourly.time.forEach((t,i)=>{
     if(j.hourly.wind_speed_10m[i]==null)return;
@@ -304,31 +287,25 @@ async function fetchWind(){
   windForecastDays=Object.keys(byDay).filter(d=>d>=ts).length;
 }
 
-// ── RATING ──
 function classifyDir(dir){
   const d=(dir+360)%360;
   if(d>=170&&d<=260)return 0;
   if((d>260&&d<=320)||(d>=100&&d<170))return 1;
   return 2;
 }
-
-// Direction logic active only for wingfoil at a non-bay location
-function shouldShowDir(){
-  return curSport==='wing' && !SITES[curSite].isBay;
-}
+function shouldShowDir(){ return curSport==='wing'&&!SITES[curSite].isBay; }
 
 function rate(tide,spd,dc,mw,mxw,mt,h){
   if(h<6.5||h>18.5)return 'night';
-  const tideOk=tide>=mt/100, tideGood=tide>=(mt+20)/100;
-  const wOk=spd>=mw&&spd<=mxw, wGood=spd>=mw+3&&spd<=mxw;
-  if(shouldShowDir()&&dc===2)return 'poor'; // offshore = no-go at Mayo wingfoil
+  const tideOk=tide>=mt/100,tideGood=tide>=(mt+20)/100;
+  const wOk=spd>=mw&&spd<=mxw,wGood=spd>=mw+3&&spd<=mxw;
+  if(shouldShowDir()&&dc===2)return 'poor';
   if(!tideOk||!wOk)return 'poor';
   if(wGood&&tideGood&&(!shouldShowDir()||dc===0))return 'prime';
   if((wOk&&tideGood)||(wGood&&tideOk))return 'good';
   if(wOk&&tideOk)return 'marginal';
   return 'poor';
 }
-
 function rateTideOnly(tide,mt,h){
   if(h<6.5||h>18.5)return 'night';
   return tide>=mt/100?'tide-good':'tide-ok';
@@ -340,12 +317,10 @@ const RCOL={prime:'var(--prime)',good:'var(--good)',marginal:'var(--marginal)',p
 const DCOL=['var(--dot-on)','var(--dot-cross)','var(--dot-off)'];
 const DLBL=['Onshore','Cross-shore','Offshore'];
 
-// ── ARROW DRAWING ──
 function drawArrow(canvas,dir,speed){
   const cw=canvas.width,ch=canvas.height,ctx=canvas.getContext('2d');
   ctx.clearRect(0,0,cw,ch);
-  const cx=cw/2,cy=22,len=11;
-  const rad=(dir+180)*Math.PI/180;
+  const cx=cw/2,cy=22,len=11,rad=(dir+180)*Math.PI/180;
   const tx=cx+Math.sin(rad)*len,ty=cy-Math.cos(rad)*len;
   const bx=cx-Math.sin(rad)*len,by=cy+Math.cos(rad)*len;
   const col='rgba(255,255,255,.85)';
@@ -364,24 +339,20 @@ function drawArrow(canvas,dir,speed){
   }
 }
 
-// ── RENDER ──
+// Show temp in colored cells only (not black: not night, poor, tide-ok)
+const SHOW_TEMP_RATINGS=new Set(['prime','good','marginal','tide-good']);
+
 function buildHeader(){
-  document.getElementById('grid-header').innerHTML=
-    '<div></div>'+HLBLS.map(l=>'<div class="gh-label">'+l+'</div>').join('');
+  document.getElementById('grid-header').innerHTML='<div></div>'+HLBLS.map(l=>'<div class="gh-label">'+l+'</div>').join('');
 }
-
 function updateLegend(){
-  const showDir=shouldShowDir();
-  document.getElementById('leg-onshore').style.display=showDir?'flex':'none';
-  document.getElementById('leg-cross').style.display=showDir?'flex':'none';
-  document.getElementById('leg-offshore').style.display=showDir?'flex':'none';
+  const sd=shouldShowDir();
+  ['leg-onshore','leg-cross','leg-offshore'].forEach(id=>document.getElementById(id).style.display=sd?'flex':'none');
 }
-
 function updateHistCheck(){
   const on=windForecastDays<NDAYS;
   document.getElementById('hist-check').classList.toggle('on',on);
-  document.getElementById('hist-label').textContent=
-    on?'tide model: day '+(windForecastDays+1)+'-'+NDAYS:'tide model';
+  document.getElementById('hist-label').textContent=on?'tide model: day '+(windForecastDays+1)+'-'+NDAYS:'tide model';
 }
 
 function renderGrid(){
@@ -389,13 +360,13 @@ function renderGrid(){
   grid.innerHTML='';
   const nowH=new Date().getHours(),todayStr=isoDate(today());
   const showDir=shouldShowDir();
+  const showTemp=curSport==='wing';
 
   for(let d=0;d<NDAYS;d++){
     const date=addDays(today(),d),ds=isoDate(date);
     const row=document.createElement('div');row.className='day-row';
     const lbl=document.createElement('div');lbl.className='day-lbl';
-    lbl.innerHTML='<div class="day-name">'+dayName(date)+'</div>'
-      +'<div class="day-date">'+monthDay(date)+'</div>';
+    lbl.innerHTML='<div class="day-name">'+dayName(date)+'</div><div class="day-date">'+monthDay(date)+'</div>';
     row.appendChild(lbl);
 
     for(let hi=0;hi<HOURS.length;hi++){
@@ -408,12 +379,8 @@ function renderGrid(){
 
       const tideOnly=(wv==null);
       let r,dc=null;
-      if(tideOnly){
-        r=rateTideOnly(tv,minTidePct,h);
-      } else {
-        dc=classifyDir(wv.dir);
-        r=rate(tv,wv.speed,dc,minWind,maxWind,minTidePct,h);
-      }
+      if(tideOnly){r=rateTideOnly(tv,minTidePct,h);}
+      else{dc=classifyDir(wv.dir);r=rate(tv,wv.speed,dc,minWind,maxWind,minTidePct,h);}
 
       cell.className='hcell '+RC[r];
       if(ds===todayStr&&h===nowH)cell.classList.add('now');
@@ -421,80 +388,58 @@ function renderGrid(){
       if(r!=='night'){
         const tidePx=Math.round(tv*TIDE_MAX_PX);
         if(tidePx>0){
-          const tf=document.createElement('div');
-          tf.className='tide-fill';tf.style.height=tidePx+'px';
-          cell.appendChild(tf);
+          const tf=document.createElement('div');tf.className='tide-fill';tf.style.height=tidePx+'px';cell.appendChild(tf);
         }
         if(!tideOnly&&r!=='poor'){
-          if(showDir){
-            const wd=document.createElement('div');
-            wd.className='wdot';wd.style.background=DCOL[dc];
-            cell.appendChild(wd);
-          }
+          if(showDir){const wd=document.createElement('div');wd.className='wdot';wd.style.background=DCOL[dc];cell.appendChild(wd);}
           if(showArrows){
-            const cnv=document.createElement('canvas');
-            cnv.className='arrow-cnv';cnv.height=57;cell.appendChild(cnv);
+            const cnv=document.createElement('canvas');cnv.className='arrow-cnv';cnv.height=57;cell.appendChild(cnv);
             requestAnimationFrame(()=>{cnv.width=cnv.parentElement?.offsetWidth||20;drawArrow(cnv,wv.dir,wv.speed);});
           }
         }
-        if(tideOnly){
-          const pip=document.createElement('div');pip.className='tide-pip';cell.appendChild(pip);
+        if(tideOnly){const pip=document.createElement('div');pip.className='tide-pip';cell.appendChild(pip);}
+
+        // Water temp — wingfoil mode, current hour only (it's a live obs, not a forecast)
+        if(showTemp&&SHOW_TEMP_RATINGS.has(r)&&WATER_TEMP_F!=null
+           &&WATER_TEMP_UPDATED&&WATER_TEMP_UPDATED.ds===ds&&WATER_TEMP_UPDATED.h===h){
+          const tl=document.createElement('div');
+          tl.className='temp-lbl';tl.textContent=WATER_TEMP_F+'°';
+          cell.appendChild(tl);
         }
       }
 
       const score={prime:4,good:3,marginal:2,poor:1,night:0,'tide-good':0,'tide-ok':0}[r];
-      cell.dataset.tip=JSON.stringify({
-        dn:dayName(date),dt:monthDay(date),h,
-        spd:wv?.speed??null,dir:wv?.dir??null,dc,
-        tide:Math.round(tv*100),r,score,tideOnly,showDir
-      });
-      cell.addEventListener('mouseenter',showTT);
-      cell.addEventListener('mousemove',moveTT);
-      cell.addEventListener('mouseleave',hideTT);
+      cell.dataset.tip=JSON.stringify({dn:dayName(date),dt:monthDay(date),h,spd:wv?.speed??null,dir:wv?.dir??null,dc,tide:Math.round(tv*100),r,score,tideOnly,showDir});
+      cell.addEventListener('mouseenter',showTT);cell.addEventListener('mousemove',moveTT);cell.addEventListener('mouseleave',hideTT);
       row.appendChild(cell);
     }
     grid.appendChild(row);
   }
 }
 
-// ── TOOLTIP ──
 const ttEl=document.getElementById('tt');
 function showTT(e){
   const d=e.currentTarget.dataset.tip;if(!d)return;
   const i=JSON.parse(d);
-  let wl;
-  if(i.tideOnly) wl='Wind: not yet forecast';
-  else if(i.showDir) wl='Wind '+i.spd+' kts · '+i.dir+'° · '+DLBL[i.dc];
-  else wl='Wind '+i.spd+' kts · '+i.dir+'°';
+  let wl=i.tideOnly?'Wind: not yet forecast':i.showDir?'Wind '+i.spd+' kts · '+i.dir+'° · '+DLBL[i.dc]:'Wind '+i.spd+' kts · '+i.dir+'°';
+  const tempLine=(curSport==='wing'&&WATER_TEMP_F!=null)?' · Water '+WATER_TEMP_F+'°F':'';
   ttEl.innerHTML='<strong>'+i.dn+' '+i.dt+' · '+ampm(i.h)+'</strong><br>'
-    +wl+'<br>Tide '+i.tide+'%'
-    +(i.tideOnly?' <span style="color:#4aaade">(model)</span>':'')
-    +'<div class="tt-r" style="color:'+RCOL[i.r]+'">'+RL[i.r]
-    +(!i.tideOnly?' · ESP32: '+i.score+'/4':'')+'</div>';
+    +wl+tempLine+'<br>Tide '+i.tide+'%'+(i.tideOnly?' <span style="color:#4aaade">(model)</span>':'')
+    +'<div class="tt-r" style="color:'+RCOL[i.r]+'">'+RL[i.r]+(!i.tideOnly?' · ESP32: '+i.score+'/4':'')+'</div>';
   ttEl.style.display='block';moveTT(e);
 }
-function moveTT(e){
-  let x=e.clientX+12,y=e.clientY-10;
-  if(x+215>window.innerWidth)x=e.clientX-220;
-  if(y+130>window.innerHeight)y=e.clientY-130;
-  ttEl.style.left=x+'px';ttEl.style.top=y+'px';
-}
+function moveTT(e){let x=e.clientX+12,y=e.clientY-10;if(x+215>window.innerWidth)x=e.clientX-220;if(y+130>window.innerHeight)y=e.clientY-130;ttEl.style.left=x+'px';ttEl.style.top=y+'px';}
 function hideTT(){ttEl.style.display='none';}
 
-// ── CONTROLS ──
 function setSport(s){
-  curSport=s;
-  const p=SPORTS[s];
+  curSport=s;const p=SPORTS[s];
   minWind=p.minWind;maxWind=p.maxWind;
-  document.getElementById('wmin').value=minWind;
-  document.getElementById('wmax').value=maxWind;
-  document.getElementById('wmin-v').textContent=minWind+' kts';
-  document.getElementById('wmax-v').textContent=maxWind+' kts';
+  document.getElementById('wmin').value=minWind;document.getElementById('wmax').value=maxWind;
+  document.getElementById('wmin-v').textContent=minWind+' kts';document.getElementById('wmax-v').textContent=maxWind+' kts';
   document.getElementById('sport-wing').classList.toggle('active',s==='wing');
   document.getElementById('sport-cat').classList.toggle('active',s==='cat');
   updateLegend();renderGrid();
 }
-
 function setLoc(i){
   curSite=i;
   [0,1,2].forEach(j=>document.getElementById('btn'+j).classList.toggle('active',j===i));
@@ -503,49 +448,23 @@ function setLoc(i){
   document.getElementById('site-note').textContent=SITES[i].note;
   updateLegend();renderGrid();
 }
-
-function onWindMin(v){
-  minWind=parseInt(v);
-  if(minWind>maxWind){maxWind=minWind;document.getElementById('wmax').value=maxWind;document.getElementById('wmax-v').textContent=maxWind+' kts';}
-  document.getElementById('wmin-v').textContent=minWind+' kts';
-  renderGrid();
-}
-function onWindMax(v){
-  maxWind=parseInt(v);
-  if(maxWind<minWind){minWind=maxWind;document.getElementById('wmin').value=minWind;document.getElementById('wmin-v').textContent=minWind+' kts';}
-  document.getElementById('wmax-v').textContent=maxWind+' kts';
-  renderGrid();
-}
+function onWindMin(v){minWind=parseInt(v);if(minWind>maxWind){maxWind=minWind;document.getElementById('wmax').value=maxWind;document.getElementById('wmax-v').textContent=maxWind+' kts';}document.getElementById('wmin-v').textContent=minWind+' kts';renderGrid();}
+function onWindMax(v){maxWind=parseInt(v);if(maxWind<minWind){minWind=maxWind;document.getElementById('wmin').value=minWind;document.getElementById('wmin-v').textContent=minWind+' kts';}document.getElementById('wmax-v').textContent=maxWind+' kts';renderGrid();}
 function onTide(v){minTidePct=parseInt(v);document.getElementById('tmin-v').textContent=v+'%';renderGrid();}
-function toggleArrows(){
-  showArrows=!showArrows;
-  document.getElementById('arrow-tog').classList.toggle('on',showArrows);
-  document.getElementById('arrow-li').style.display=showArrows?'flex':'none';
-  renderGrid();
-}
-function setStatus(state,msg){
-  document.getElementById('sdot').className='sdot'+(state==='ok'?'':state==='loading'?' loading':' error');
-  document.getElementById('stext').textContent=msg;
-}
-function showError(msg){
-  document.getElementById('grid').innerHTML='<div class="error-box">'
-    +'<div class="ei">⚠</div><div class="et">Unable to load live data</div>'
-    +'<div class="em">'+msg+'</div>'
-    +'<button class="err-retry" onclick="location.reload()">Retry</button></div>';
-}
+function toggleArrows(){showArrows=!showArrows;document.getElementById('arrow-tog').classList.toggle('on',showArrows);document.getElementById('arrow-li').style.display=showArrows?'flex':'none';renderGrid();}
+function setStatus(state,msg){document.getElementById('sdot').className='sdot'+(state==='ok'?'':state==='loading'?' loading':' error');document.getElementById('stext').textContent=msg;}
+function showError(msg){document.getElementById('grid').innerHTML='<div class="error-box"><div class="ei">⚠</div><div class="et">Unable to load live data</div><div class="em">'+msg+'</div><button class="err-retry" onclick="location.reload()">Retry</button></div>';}
 
-// ── INIT ──
 (async()=>{
   buildHeader();renderGrid();
   setStatus('loading','Fetching NOAA tides & Open-Meteo wind…');
   try{
-    await Promise.all([fetchTides(0),fetchTides(1),fetchTides(2),fetchWind()]);
+    await Promise.all([fetchTides(0),fetchTides(1),fetchTides(2),fetchWind(),fetchWaterTemp()]);
     const t=new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
-    setStatus('ok','Updated '+t+' · NOAA 8446613, 8447435, 8447291 · Open-Meteo ('+windForecastDays+'d)');
+    setStatus('ok','Updated '+t+' · NOAA tides · Open-Meteo wind ('+windForecastDays+'d)'+(WATER_TEMP_F!=null?' · Water '+WATER_TEMP_F+'°F (Woods Hole)':''));
     updateHistCheck();updateLegend();renderGrid();
   }catch(err){
-    console.error(err);
-    setStatus('error','Data unavailable');
+    console.error(err);setStatus('error','Data unavailable');
     showError(err.message+'<br><br>Must be served via HTTP (GitHub Pages or python3 -m http.server 8080).');
   }
 })();
