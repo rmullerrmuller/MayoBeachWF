@@ -16,21 +16,18 @@
   *{box-sizing:border-box;margin:0;padding:0;}
   body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:13px;min-height:100vh;}
 
-  header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px 12px;border-bottom:0.5px solid var(--border);background:var(--bg2);flex-wrap:wrap;gap:12px;}
-  .brand-super{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.18em;color:var(--text3);text-transform:uppercase;}
-  .brand-title{font-size:20px;font-weight:300;letter-spacing:-.02em;}
+  header{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-bottom:0.5px solid var(--border);background:var(--bg2);flex-wrap:wrap;gap:10px;}
+  .brand-super{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.18em;color:var(--text3);text-transform:uppercase;margin-bottom:3px;}
 
-  .header-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
-
-  /* Sport toggle */
+  /* Sport toggle — acts as the page title */
   .sport-toggle{display:flex;border:0.5px solid var(--border);border-radius:8px;overflow:hidden;}
-  .sport-btn{padding:7px 16px;font-size:12px;font-weight:500;cursor:pointer;color:var(--text2);background:transparent;border:none;font-family:'DM Sans',sans-serif;transition:all .15s;white-space:nowrap;}
+  .sport-btn{padding:8px 18px;font-size:15px;font-weight:300;letter-spacing:-.01em;cursor:pointer;color:var(--text2);background:transparent;border:none;font-family:'DM Sans',sans-serif;transition:all .15s;white-space:nowrap;}
   .sport-btn:first-child{border-right:0.5px solid var(--border);}
   .sport-btn.active{background:var(--accent);color:#fff;}
 
   /* Location tabs */
-  .loc-tabs{display:flex;gap:6px;}
-  .loc-tab{padding:7px 16px;border-radius:6px;font-size:12px;font-weight:500;border:0.5px solid var(--border);cursor:pointer;background:transparent;color:var(--text2);transition:all .15s;font-family:'DM Sans',sans-serif;}
+  .loc-tabs{display:flex;gap:6px;flex-wrap:wrap;}
+  .loc-tab{padding:7px 14px;border-radius:6px;font-size:12px;font-weight:500;border:0.5px solid var(--border);cursor:pointer;background:transparent;color:var(--text2);transition:all .15s;font-family:'DM Sans',sans-serif;white-space:nowrap;}
   .loc-tab.active{background:var(--accent);color:#fff;border-color:transparent;}
 
   /* Controls */
@@ -57,9 +54,10 @@
   .sdot.error{background:var(--dot-off);}
   @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 
-  .site-info{padding:12px 20px 8px;display:flex;align-items:baseline;gap:10px;}
+  .site-info{padding:12px 20px 8px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;}
   .site-name{font-size:22px;font-weight:300;letter-spacing:-.02em;}
   .site-sub{font-size:11px;color:var(--text3);font-family:'DM Mono',monospace;}
+  .site-note{font-size:10px;color:var(--text3);font-family:'DM Mono',monospace;font-style:italic;}
 
   .grid-wrap{padding:0 20px 20px;overflow-x:auto;}
   .grid-header{display:grid;grid-template-columns:64px repeat(12,1fr);gap:1px;margin-bottom:3px;padding-bottom:4px;border-bottom:0.5px solid var(--border);}
@@ -93,7 +91,7 @@
   .ls{width:10px;height:10px;border-radius:2px;flex-shrink:0;}
   .ld{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
 
-  #tt{position:fixed;display:none;background:var(--bg2);border:0.5px solid rgba(255,255,255,.12);border-radius:8px;padding:9px 12px;font-size:11px;color:var(--text);line-height:1.7;pointer-events:none;z-index:999;max-width:200px;font-family:'DM Mono',monospace;}
+  #tt{position:fixed;display:none;background:var(--bg2);border:0.5px solid rgba(255,255,255,.12);border-radius:8px;padding:9px 12px;font-size:11px;color:var(--text);line-height:1.7;pointer-events:none;z-index:999;max-width:210px;font-family:'DM Mono',monospace;}
   #tt strong{color:#fff;font-weight:500;}
   .tt-r{margin-top:3px;font-size:12px;}
   .error-box{display:flex;flex-direction:column;align-items:center;padding:48px 20px;gap:12px;text-align:center;}
@@ -108,17 +106,16 @@
 <header>
   <div>
     <div class="brand-super">Cape Cod · Conditions</div>
-    <div class="brand-title" id="brand-title">Wingfoil</div>
-  </div>
-  <div class="header-right">
+    <!-- Sport toggle is the title -->
     <div class="sport-toggle">
       <button class="sport-btn active" id="sport-wing" onclick="setSport('wing')">Wingfoil</button>
       <button class="sport-btn"        id="sport-cat"  onclick="setSport('cat')">Catboat</button>
     </div>
-    <div class="loc-tabs">
-      <button class="loc-tab active" id="btn0" onclick="setLoc(0)">Mayo Beach</button>
-      <button class="loc-tab"        id="btn1" onclick="setLoc(1)">Pleasant Bay</button>
-    </div>
+  </div>
+  <div class="loc-tabs">
+    <button class="loc-tab active" id="btn0" onclick="setLoc(0)">Mayo Beach</button>
+    <button class="loc-tab"        id="btn1" onclick="setLoc(1)">Pleasant Bay</button>
+    <button class="loc-tab"        id="btn2" onclick="setLoc(2)">Meeting House</button>
   </div>
 </header>
 
@@ -159,6 +156,7 @@
 <div class="site-info">
   <div class="site-name" id="site-name">Mayo Beach</div>
   <div class="site-sub"  id="site-sub">Wellfleet · Cape Cod Bay</div>
+  <div class="site-note" id="site-note"></div>
 </div>
 
 <div class="grid-wrap">
@@ -171,31 +169,41 @@
   <span class="li"><span class="ls" style="background:var(--good)"></span>Good</span>
   <span class="li"><span class="ls" style="background:var(--marginal)"></span>Marginal</span>
   <span class="li"><span class="ls" style="background:var(--poor);border:0.5px solid #333"></span>Poor</span>
-  <span class="li" id="leg-onshore" style="display:none"><span class="ld" style="background:var(--dot-on)"></span>Onshore</span>
-  <span class="li" id="leg-cross"   style="display:none"><span class="ld" style="background:var(--dot-cross)"></span>Cross</span>
+  <span class="li" id="leg-onshore"  style="display:none"><span class="ld" style="background:var(--dot-on)"></span>Onshore</span>
+  <span class="li" id="leg-cross"    style="display:none"><span class="ld" style="background:var(--dot-cross)"></span>Cross</span>
   <span class="li" id="leg-offshore" style="display:none"><span class="ld" style="background:var(--dot-off)"></span>Offshore</span>
   <span class="li" id="arrow-li" style="display:none">↑ tails=strength</span>
 </div>
 <div id="tt"></div>
 
 <script>
+// ── SITES ──
+// Meeting House Pond: no dedicated NOAA station.
+// Using 8447291 (Pleasant Bay, South Orleans) — nearest subordinate station.
+// Tides shifted +40min to approximate the lag through the Namequoit River channel.
+// Use for visual ground-truthing; not a precision instrument.
 const SITES=[
-  {name:'Mayo Beach',  sub:'Wellfleet · Cape Cod Bay', noaaId:'8446613', isBay:false},
-  {name:'Pleasant Bay',sub:'Chatham · Orleans',         noaaId:'8447435', isBay:true},
+  { name:'Mayo Beach',    sub:'Wellfleet · Cape Cod Bay',         note:'',
+    noaaId:'8446613', isBay:false, tideOffsetMin:0   },
+  { name:'Pleasant Bay',  sub:'Chatham · Orleans',                 note:'',
+    noaaId:'8447435', isBay:true,  tideOffsetMin:0   },
+  { name:'Meeting House', sub:'East Orleans · Namequoit River',
+    note:'Tide via NOAA 8447291 (Pleasant Bay S. Orleans) +40min offset — for observation',
+    noaaId:'8447291', isBay:true,  tideOffsetMin:40  },
 ];
+
 const HOURS=[7,8,9,10,11,12,13,14,15,16,17,18];
 const HLBLS=['7a','8','9','10','11','12p','1','2','3','4','5','6p'];
 const NDAYS=10;
 const TIDE_MAX_PX=40;
 
-// Sport presets — applied when sport is switched
-// showDir: whether wind direction dots and onshore logic are active
+// Sport presets
 const SPORTS={
   wing:{ label:'Wingfoil', minWind:12, maxWind:20, showDir:true  },
   cat: { label:'Catboat',  minWind:5,  maxWind:14, showDir:false },
 };
 
-let tideData=[null,null], windData=null;
+let tideData=[null,null,null], windData=null;
 let minWind=12, maxWind=20, minTidePct=28;
 let curSite=0, curSport='wing', showArrows=false;
 let windForecastDays=0;
@@ -208,10 +216,11 @@ const monthDay=d=>(d.getMonth()+1)+'/'+d.getDate();
 const ampm=h=>h===12?'12p':h>12?(h-12)+'p':h+'a';
 
 // ── NOAA TIDES ──
-const HILO_ONLY=new Set(['8446613']);
+const HILO_ONLY=new Set(['8446613','8447291']);
 
 async function fetchTides(si){
-  const id=SITES[si].noaaId;
+  const site=SITES[si];
+  const id=site.noaaId;
   const s=addDays(today(),-1);
   const e=addDays(today(), 9);
   const fmt=d=>d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0');
@@ -219,18 +228,32 @@ async function fetchTides(si){
     +'?begin_date='+fmt(s)+'&end_date='+fmt(e)
     +'&station='+id+'&product=predictions&datum=MLLW'
     +'&time_zone=lst_ldt&units=english&application=wingfoil&format=json';
+
   let predictions;
   if(HILO_ONLY.has(id)){
     const j=await(await fetch(base+'&interval=hilo')).json();
     if(!j.predictions||j.predictions.length===0)
-      throw new Error('Wellfleet hi/lo failed: '+JSON.stringify(j).slice(0,200));
+      throw new Error('NOAA '+id+' hi/lo failed: '+JSON.stringify(j).slice(0,200));
     predictions=cosineInterpolate(j.predictions);
   } else {
     const j=await(await fetch(base)).json();
     if(!j.predictions||j.predictions.length===0)
-      throw new Error('Chatham hourly failed: '+JSON.stringify(j).slice(0,200));
+      throw new Error('NOAA '+id+' hourly failed: '+JSON.stringify(j).slice(0,200));
     predictions=j.predictions.map(p=>({t:p.t,v:parseFloat(p.v)}));
   }
+
+  // Apply tide offset (minutes) — shifts predictions forward in time
+  // Used for Meeting House Pond to approximate river lag
+  if(site.tideOffsetMin!==0){
+    predictions=predictions.map(p=>{
+      const d=new Date(p.t.replace(' ','T'));
+      d.setMinutes(d.getMinutes()+site.tideOffsetMin);
+      const mm=String(d.getMonth()+1).padStart(2,'0'),dd=String(d.getDate()).padStart(2,'0');
+      const hh=String(d.getHours()).padStart(2,'0');
+      return {t:d.getFullYear()+'-'+mm+'-'+dd+' '+hh+':00',v:p.v};
+    });
+  }
+
   const vals=predictions.map(p=>p.v);
   const mn=Math.min(...vals),mx=Math.max(...vals),rng=mx-mn||1;
   const byDay={};
@@ -282,16 +305,15 @@ async function fetchWind(){
 }
 
 // ── RATING ──
-// showDirLogic: true = onshore/offshore matters; false = wind strength only (bay or catboat)
 function classifyDir(dir){
   const d=(dir+360)%360;
-  if(d>=170&&d<=260)return 0; // onshore SW
-  if((d>260&&d<=320)||(d>=100&&d<170))return 1; // cross
-  return 2; // offshore
+  if(d>=170&&d<=260)return 0;
+  if((d>260&&d<=320)||(d>=100&&d<170))return 1;
+  return 2;
 }
 
+// Direction logic active only for wingfoil at a non-bay location
 function shouldShowDir(){
-  // Direction logic only active for wingfoil AND not in a bay location
   return curSport==='wing' && !SITES[curSite].isBay;
 }
 
@@ -299,8 +321,7 @@ function rate(tide,spd,dc,mw,mxw,mt,h){
   if(h<6.5||h>18.5)return 'night';
   const tideOk=tide>=mt/100, tideGood=tide>=(mt+20)/100;
   const wOk=spd>=mw&&spd<=mxw, wGood=spd>=mw+3&&spd<=mxw;
-  // Offshore at Mayo in wingfoil mode = no-go
-  if(shouldShowDir()&&dc===2)return 'poor';
+  if(shouldShowDir()&&dc===2)return 'poor'; // offshore = no-go at Mayo wingfoil
   if(!tideOk||!wOk)return 'poor';
   if(wGood&&tideGood&&(!shouldShowDir()||dc===0))return 'prime';
   if((wOk&&tideGood)||(wGood&&tideOk))return 'good';
@@ -387,7 +408,6 @@ function renderGrid(){
 
       const tideOnly=(wv==null);
       let r,dc=null;
-
       if(tideOnly){
         r=rateTideOnly(tv,minTidePct,h);
       } else {
@@ -399,32 +419,24 @@ function renderGrid(){
       if(ds===todayStr&&h===nowH)cell.classList.add('now');
 
       if(r!=='night'){
-        // Tide fill
         const tidePx=Math.round(tv*TIDE_MAX_PX);
         if(tidePx>0){
           const tf=document.createElement('div');
           tf.className='tide-fill';tf.style.height=tidePx+'px';
           cell.appendChild(tf);
         }
-
         if(!tideOnly&&r!=='poor'){
-          // Wind dot — only when direction logic is active
           if(showDir){
             const wd=document.createElement('div');
             wd.className='wdot';wd.style.background=DCOL[dc];
             cell.appendChild(wd);
           }
-          // Arrow when toggled
           if(showArrows){
             const cnv=document.createElement('canvas');
             cnv.className='arrow-cnv';cnv.height=57;cell.appendChild(cnv);
-            requestAnimationFrame(()=>{
-              cnv.width=cnv.parentElement?.offsetWidth||20;
-              drawArrow(cnv,wv.dir,wv.speed);
-            });
+            requestAnimationFrame(()=>{cnv.width=cnv.parentElement?.offsetWidth||20;drawArrow(cnv,wv.dir,wv.speed);});
           }
         }
-
         if(tideOnly){
           const pip=document.createElement('div');pip.className='tide-pip';cell.appendChild(pip);
         }
@@ -450,16 +462,12 @@ const ttEl=document.getElementById('tt');
 function showTT(e){
   const d=e.currentTarget.dataset.tip;if(!d)return;
   const i=JSON.parse(d);
-  let windLine;
-  if(i.tideOnly){
-    windLine='Wind: not yet forecast';
-  } else if(i.showDir){
-    windLine='Wind '+i.spd+' kts · '+i.dir+'° · '+DLBL[i.dc];
-  } else {
-    windLine='Wind '+i.spd+' kts · '+i.dir+'°';
-  }
+  let wl;
+  if(i.tideOnly) wl='Wind: not yet forecast';
+  else if(i.showDir) wl='Wind '+i.spd+' kts · '+i.dir+'° · '+DLBL[i.dc];
+  else wl='Wind '+i.spd+' kts · '+i.dir+'°';
   ttEl.innerHTML='<strong>'+i.dn+' '+i.dt+' · '+ampm(i.h)+'</strong><br>'
-    +windLine+'<br>Tide '+i.tide+'%'
+    +wl+'<br>Tide '+i.tide+'%'
     +(i.tideOnly?' <span style="color:#4aaade">(model)</span>':'')
     +'<div class="tt-r" style="color:'+RCOL[i.r]+'">'+RL[i.r]
     +(!i.tideOnly?' · ESP32: '+i.score+'/4':'')+'</div>';
@@ -467,7 +475,7 @@ function showTT(e){
 }
 function moveTT(e){
   let x=e.clientX+12,y=e.clientY-10;
-  if(x+205>window.innerWidth)x=e.clientX-210;
+  if(x+215>window.innerWidth)x=e.clientX-220;
   if(y+130>window.innerHeight)y=e.clientY-130;
   ttEl.style.left=x+'px';ttEl.style.top=y+'px';
 }
@@ -476,41 +484,34 @@ function hideTT(){ttEl.style.display='none';}
 // ── CONTROLS ──
 function setSport(s){
   curSport=s;
-  const preset=SPORTS[s];
-  // Update sliders and values
-  minWind=preset.minWind; maxWind=preset.maxWind;
+  const p=SPORTS[s];
+  minWind=p.minWind;maxWind=p.maxWind;
   document.getElementById('wmin').value=minWind;
   document.getElementById('wmax').value=maxWind;
   document.getElementById('wmin-v').textContent=minWind+' kts';
   document.getElementById('wmax-v').textContent=maxWind+' kts';
-  // Update sport buttons
   document.getElementById('sport-wing').classList.toggle('active',s==='wing');
   document.getElementById('sport-cat').classList.toggle('active',s==='cat');
-  // Update brand title
-  document.getElementById('brand-title').textContent=preset.label;
-  updateLegend();
-  renderGrid();
+  updateLegend();renderGrid();
 }
 
 function setLoc(i){
   curSite=i;
-  [0,1].forEach(j=>document.getElementById('btn'+j).classList.toggle('active',j===i));
+  [0,1,2].forEach(j=>document.getElementById('btn'+j).classList.toggle('active',j===i));
   document.getElementById('site-name').textContent=SITES[i].name;
   document.getElementById('site-sub').textContent=SITES[i].sub;
-  updateLegend();
-  renderGrid();
+  document.getElementById('site-note').textContent=SITES[i].note;
+  updateLegend();renderGrid();
 }
 
 function onWindMin(v){
   minWind=parseInt(v);
-  // Keep min <= max
   if(minWind>maxWind){maxWind=minWind;document.getElementById('wmax').value=maxWind;document.getElementById('wmax-v').textContent=maxWind+' kts';}
   document.getElementById('wmin-v').textContent=minWind+' kts';
   renderGrid();
 }
 function onWindMax(v){
   maxWind=parseInt(v);
-  // Keep max >= min
   if(maxWind<minWind){minWind=maxWind;document.getElementById('wmin').value=minWind;document.getElementById('wmin-v').textContent=minWind+' kts';}
   document.getElementById('wmax-v').textContent=maxWind+' kts';
   renderGrid();
@@ -538,14 +539,14 @@ function showError(msg){
   buildHeader();renderGrid();
   setStatus('loading','Fetching NOAA tides & Open-Meteo wind…');
   try{
-    await Promise.all([fetchTides(0),fetchTides(1),fetchWind()]);
+    await Promise.all([fetchTides(0),fetchTides(1),fetchTides(2),fetchWind()]);
     const t=new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
-    setStatus('ok','Updated '+t+' · NOAA 8446613 & 8447435 · Open-Meteo ('+windForecastDays+'d)');
+    setStatus('ok','Updated '+t+' · NOAA 8446613, 8447435, 8447291 · Open-Meteo ('+windForecastDays+'d)');
     updateHistCheck();updateLegend();renderGrid();
   }catch(err){
     console.error(err);
     setStatus('error','Data unavailable');
-    showError(err.message+'<br><br>Must be served via HTTP — not opened as a local file.');
+    showError(err.message+'<br><br>Must be served via HTTP (GitHub Pages or python3 -m http.server 8080).');
   }
 })();
 </script>
