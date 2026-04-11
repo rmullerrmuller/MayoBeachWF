@@ -9,7 +9,7 @@
   :root {
     --bg:#0f1117;--bg2:#161920;--bg3:#1e2028;--border:rgba(255,255,255,0.08);
     --text:#e8e8e8;--text2:#888;--text3:#555;
-    --prime:#1D9E75;--good:#639922;--marginal:#BA7517;--poor:#1e2028;--night:#0d0e12;
+    --prime:#1D9E75;--good:#639922;--marginal:#BA7517;--poor:#262830;--night:#0d0e12;
     --dot-on:#1acea0;--dot-cross:#f0a020;--dot-off:#e24b4a;--accent:#1D9E75;
     --tide-good:#1a3a4a;--tide-ok:#161e24;
   }
@@ -124,7 +124,7 @@
   </div>
   <div class="ctrl-sep"></div>
   <div class="tog-wrap" onclick="toggleArrows()">
-    <div class="tog-track" id="arrow-tog"><div class="tog-knob"></div></div>
+    <div class="tog-track on" id="arrow-tog"><div class="tog-knob"></div></div>
     <span class="tog-label">Arrows</span>
   </div>
   <div class="ctrl-sep"></div>
@@ -177,8 +177,9 @@ const SPORTS={
 
 let tideData=[null,null,null], windData=null;
 let minWind=12, maxWind=20, minTidePct=28;
-let curSite=0, curSport='wing', showArrows=false;
+let curSite=0, curSport='wing';
 let windForecastDays=0;
+let showArrows=true; // arrows on by default
 
 // Water temp — single value applied to all days, wingfoil mode only
 // Source: NOAA NDBC buoy 44090 (off Cape Cod) — update manually for now
@@ -287,12 +288,28 @@ async function fetchWind(){
   windForecastDays=Object.keys(byDay).filter(d=>d>=ts).length;
 }
 
+// classifyDir: used for RATING logic and offshore safety check.
+// Kept at original working SW-onshore definition so cell colors are unaffected.
 function classifyDir(dir){
   const d=(dir+360)%360;
-  if(d>=170&&d<=260)return 0;
-  if((d>260&&d<=320)||(d>=100&&d<170))return 1;
-  return 2;
+  if(d>=170&&d<=260)return 0; // onshore SW — best for rating
+  if((d>260&&d<=320)||(d>=100&&d<170))return 1; // cross
+  return 2; // offshore
 }
+
+// dotDir: used ONLY for wind dot color at Mayo Beach.
+// Mayo runs E-W; the bay is to the NORTH, land to the south.
+// Onshore (safe, dot=green): wind from S pushing toward the northern shore — 110-250°
+// Cross (dot=amber):         265-289° and 71-109°
+// Offshore (dot=red):        290-360° and 0-70° — wind pushing away from shore
+function dotDir(dir, isBay){
+  if(isBay) return classifyDir(dir); // bays use standard logic for dot color
+  const d=(dir+360)%360;
+  if(d>=110&&d<=250)return 0; // onshore — from S/SW pushing toward N shore
+  if((d>250&&d<=289)||(d>=71&&d<110))return 1; // cross
+  return 2; // offshore — from N, pushing away from beach
+}
+
 function shouldShowDir(){ return curSport==='wing'&&!SITES[curSite].isBay; }
 
 function rate(tide,spd,dc,mw,mxw,mt,h){
@@ -362,6 +379,7 @@ function renderGrid(){
   const showDir=shouldShowDir();
   const showTemp=curSport==='wing';
 
+  let tempShownToday=false; // show water temp once in first valid cell of today
   for(let d=0;d<NDAYS;d++){
     const date=addDays(today(),d),ds=isoDate(date);
     const row=document.createElement('div');row.className='day-row';
@@ -391,7 +409,7 @@ function renderGrid(){
           const tf=document.createElement('div');tf.className='tide-fill';tf.style.height=tidePx+'px';cell.appendChild(tf);
         }
         if(!tideOnly&&r!=='poor'){
-          if(showDir){const wd=document.createElement('div');wd.className='wdot';wd.style.background=DCOL[dc];cell.appendChild(wd);}
+          if(showDir){const wd=document.createElement('div');wd.className='wdot';wd.style.background=DCOL[dotDir(wv.dir,SITES[curSite].isBay)];cell.appendChild(wd);}
           if(showArrows){
             const cnv=document.createElement('canvas');cnv.className='arrow-cnv';cnv.height=57;cell.appendChild(cnv);
             requestAnimationFrame(()=>{cnv.width=cnv.parentElement?.offsetWidth||20;drawArrow(cnv,wv.dir,wv.speed);});
@@ -399,12 +417,12 @@ function renderGrid(){
         }
         if(tideOnly){const pip=document.createElement('div');pip.className='tide-pip';cell.appendChild(pip);}
 
-        // Water temp — wingfoil mode, current hour only (it's a live obs, not a forecast)
-        if(showTemp&&SHOW_TEMP_RATINGS.has(r)&&WATER_TEMP_F!=null
-           &&WATER_TEMP_UPDATED&&WATER_TEMP_UPDATED.ds===ds&&WATER_TEMP_UPDATED.h===h){
+        // Water temp — show once in the first non-gray cell of today (projected forward if needed)
+        if(showTemp&&WATER_TEMP_F!=null&&ds===todayStr&&SHOW_TEMP_RATINGS.has(r)&&!tempShownToday){
           const tl=document.createElement('div');
           tl.className='temp-lbl';tl.textContent=WATER_TEMP_F+'°';
           cell.appendChild(tl);
+          tempShownToday=true;
         }
       }
 
@@ -421,7 +439,7 @@ const ttEl=document.getElementById('tt');
 function showTT(e){
   const d=e.currentTarget.dataset.tip;if(!d)return;
   const i=JSON.parse(d);
-  let wl=i.tideOnly?'Wind: not yet forecast':i.showDir?'Wind '+i.spd+' kts · '+i.dir+'° · '+DLBL[i.dc]:'Wind '+i.spd+' kts · '+i.dir+'°';
+  const ddc=dotDir(i.dir||0,SITES[curSite].isBay);let wl=i.tideOnly?'Wind: not yet forecast':i.showDir?'Wind '+i.spd+' kts · '+i.dir+'° · '+DLBL[ddc]:'Wind '+i.spd+' kts · '+i.dir+'°';
   const tempLine=(curSport==='wing'&&WATER_TEMP_F!=null)?' · Water '+WATER_TEMP_F+'°F':'';
   ttEl.innerHTML='<strong>'+i.dn+' '+i.dt+' · '+ampm(i.h)+'</strong><br>'
     +wl+tempLine+'<br>Tide '+i.tide+'%'+(i.tideOnly?' <span style="color:#4aaade">(model)</span>':'')
